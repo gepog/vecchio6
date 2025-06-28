@@ -184,8 +184,8 @@ function App() {
   const allMyListMovies = [...myListMovies, ...customMoviesInMyList];
   
   const finalContentRows = allMyListMovies.length > 0 
-    ? [{ id: 'mylist', title: 'My List', movies: allMyListMovies }, ...updatedContentRows]
-    : updatedContentRows;
+    ? [{ id: 'mylist', title: 'My List', movies: allMyListMovies }]
+    : [];
 
   return (
     <div className="bg-black min-h-screen">
@@ -248,24 +248,22 @@ function App() {
           />
 
           <div className="relative -mt-16 z-10">
-            {finalContentRows.map((row) => (
+            {finalContentRows.length > 0 && (
               <div
-                key={row.id}
-                id={row.id === 'mylist' ? 'mylist-section' : undefined}
-                data-section={row.id === 'most-liked' ? 'most-popular' : undefined}
-                className={row.id === 'mylist' ? 'pt-16' : ''}
+                id="mylist-section"
+                className="pt-16"
               >
                 <ContentRow
-                  title={row.title}
-                  movies={row.movies}
+                  title="My List"
+                  movies={allMyListMovies}
                   onPlay={handlePlay}
                   onAddToList={handleAddToList}
                   onMoreInfo={handleMoreInfo}
-                  isMyListRow={row.id === 'mylist'}
+                  isMyListRow={true}
                   myList={myList}
                 />
               </div>
-            ))}
+            )}
           </div>
         </>
       )}
